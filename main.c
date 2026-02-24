@@ -101,8 +101,59 @@ void EasyBot(char board[3][3]){
     }
 }
 
+int FindMove(char board[3][3],char symbol,int *r,int *c){
+    int win[8][3][2] = {
+        {{0,0},{0,1},{0,2}},
+        {{1,0},{1,1},{1,2}},
+        {{2,0},{2,1},{2,2}},
+
+        {{0,0},{1,0},{2,0}},
+        {{0,1},{1,1},{2,1}},
+        {{0,2},{1,2},{2,2}},
+
+        {{0,0},{1,1},{2,2}},
+        {{0,2},{1,1},{2,0}}
+    };
+
+    for (int i=0;i<8;i++){
+
+        int count = 0;
+        int empty = -1;
+
+        for(int j = 0;j < 3;j++){
+            int row = win[i][j][0];
+            int col = win[i][j][1];
+
+            if(board[row][col] == symbol){
+                count++;
+            }
+            else if (board[row][col] == ' '){
+                empty = j;
+            }
+        }
+        if(count == 2 && empty != -1){
+            *r = win[i][empty][0];
+            *c = win[i][empty][1];
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void MediumBot(char board[3][3]){
-    
+    int r,c;
+
+    if(FindMove(board,'O',&r,&c)){
+        board[r][c] = 'O';
+        return;
+    }
+    else if(FindMove(board,'X',&r,&c)){
+        board[r][c] = 'O';
+        return;
+    }
+    else{
+        EasyBot(board);
+    }
 }
 
 void Gameloop(char board[3][3], BotMove bot){
@@ -168,7 +219,7 @@ int main(){
                 Gameloop(board,EasyBot);
                 break;
             case 2:
-                printf("Coming Soon");
+                Gameloop(board,MediumBot);
                 break;
             case 3:
                 printf("Coming Soon");
