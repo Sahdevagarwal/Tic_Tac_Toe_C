@@ -101,6 +101,10 @@ void EasyBot(char board[3][3]){
     }
 }
 
+void MediumBot(char board[3][3]){
+    
+}
+
 void Gameloop(char board[3][3], BotMove bot){
     int ch;
     Instructions();
