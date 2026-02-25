@@ -1,39 +1,46 @@
-# 🎮 Tic-Tac-Toe Game (C Language)
+# 🎮 Tic-Tac-Toe (C Language)
 
-A simple **console-based Tic-Tac-Toe game** written in **C** where two players take turns placing `X` and `O` on a 3×3 board.
+A **console-based Tic-Tac-Toe game** written in **C** featuring multiple AI difficulty levels including an **unbeatable Minimax AI**.
 
-This project demonstrates core programming concepts like arrays, functions, loops, and game logic implementation.
+This project demonstrates game design, modular programming, and basic Artificial Intelligence implementation using recursion.
 
 ---
 
-## 📌 Features
+## ✨ Features
 
-* 🧩 Two-player gameplay (Player X vs Player O)
-* 📋 Instruction screen
-* 🎯 Position-based input (1–9)
-* ✅ Win detection (rows, columns, diagonals)
-* 🤝 Draw detection
-* 🔄 Alternating player turns
-* 🖥️ Clean console board display
+✅ Player vs Player mode
+✅ Player vs Computer mode
+✅ Multiple difficulty levels:
+
+* 🟢 Easy — Random moves
+* 🟡 Medium — Smart blocking & winning logic
+* 🔴 Hard — Minimax AI (Unbeatable)
+
+✅ Clean board rendering
+✅ Win & draw detection
+✅ Modular bot system using function pointers
+✅ Recursive AI decision making
 
 ---
 
 ## 🧠 Concepts Used
 
-* Functions
+* Functions & Modular Design
 * 2D Arrays
-* Conditional Statements
-* Loops
-* Input Handling
-* Game Logic Design
+* Function Pointers
+* Game Loop Architecture
+* Recursion
+* Backtracking
+* Minimax Algorithm
+* Basic Artificial Intelligence
 
 ---
 
-## 🎲 Game Instructions
+## 🎲 How to Play
 
-Choose a position from **1 to 9**:
+Board positions:
 
-```
+```id="a17392"
 1 | 2 | 3
 ---------
 4 | 5 | 6
@@ -41,35 +48,55 @@ Choose a position from **1 to 9**:
 7 | 8 | 9
 ```
 
-Players take turns:
-
-* Player **X** starts first
-* Enter the position number to place your mark
-* First player to align 3 marks wins
+* Player **X** plays first.
+* Enter the number corresponding to the position.
+* Align three symbols in a row, column, or diagonal to win.
 
 ---
 
-## ⚙️ How to Run
+## 🤖 Difficulty Levels
 
-### 1️⃣ Compile
+### 🟢 Easy Mode
 
-```bash
-gcc main.c -o a
+Computer chooses random empty positions.
+
+### 🟡 Medium Mode
+
+Computer:
+
+1. Plays winning move if available
+2. Blocks player’s winning move
+3. Otherwise plays randomly
+
+### 🔴 Hard Mode (Minimax AI)
+
+* Simulates all future moves
+* Chooses optimal outcome
+* Cannot be defeated (best possible result is a draw)
+
+---
+
+## ⚙️ Compile & Run
+
+### Compile
+
+```bash id="a17393"
+gcc main.c -o a.exe
 ```
 
-### 2️⃣ Run
+### Run
 
-```bash
+```bash id="a17394"
 ./a.exe
 ```
 
-*(Windows users can run `a.exe` directly.)*
+(Windows users can run `a.exe` directly.)
 
 ---
 
 ## 📂 Project Structure
 
-```
+```id="a17395"
 TicTacToe/
 │
 ├── main.c
@@ -79,13 +106,14 @@ TicTacToe/
 
 ---
 
-## 🚀 Future Improvements
+## 🚀 Learning Outcomes
 
-* 🤖 Player vs Computer mode
-* 🧠 AI opponent
-* 🔁 Play Again option
-* 🎨 Better UI formatting
-* Input validation improvements
+This project helped practice:
+
+* Game state management
+* AI search algorithms
+* Recursive problem solving
+* Clean C project organization
 
 ---
 
@@ -93,7 +121,7 @@ TicTacToe/
 
 **Sahdev Agarwal**
 
-Learning C programming through hands-on projects.
+Aspiring AI/ML Engineer learning programming through hands-on projects.
 
 ---
 
