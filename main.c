@@ -84,7 +84,6 @@ void Player(char board[3][3]){
 
 void EasyBot(char board[3][3]){
     int ch,row,col;
-    srand(time(NULL));
 
     while(1){
         ch = rand()% 9 + 1;
@@ -193,6 +192,129 @@ void Gameloop(char board[3][3], BotMove bot){
     }
 }
 
+int Evaluation(char board[3][3]){
+    for(int i=0;i<3;i++){
+        if(board[i][0] == board[i][1] && board[i][1] == board[i][2]){
+            if(board[i][0] == 'X'){
+                return 10;
+            }
+            else if (board[i][0] == 'O'){
+                return -10;
+            }
+        }
+        if (board[0][i] == board[1][i] && board[1][i] == board[2][i]){
+            if(board[0][i] == 'X'){
+                return 10;
+            }
+            else if (board[0][i] == 'O'){
+                return -10;
+            }
+        }
+    }
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+        if(board[0][0] == 'X'){
+            return 10;
+        }
+        else if (board[0][0] == 'O'){
+            return -10;
+        }
+    }
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0]){
+        if(board[0][2] == 'X'){
+            return 10;
+        }
+        else if (board[0][2] == 'O'){
+            return -10;
+        }
+    }
+    return 0;
+}
+
+int MovesLeft(char board[3][3]){
+    for (int i = 0;i < 3;i++){
+        for(int j = 0;j < 3;j++){
+            if(board[i][j] == ' '){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int Minimax(char board[3][3], int depth , int isMax){
+    int score = Evaluation(board);
+
+    if (score == 10 || score == -10){
+        return score;
+    }
+    if(!MovesLeft(board)){
+        return 0;
+    }
+    if (isMax){
+        int best = -1000;
+
+        for(int i = 0;i < 3;i++){
+            for(int j = 0;j < 3;j++){
+                if (board[i][j] == ' '){
+                    board[i][j] = 'X';
+                    int value = Minimax(board,depth + 1,0);
+                    if (value > best){
+                        best = value;
+                    }
+                    board[i][j] = ' ';
+                }
+            }
+        }
+        return best;
+    }
+    else{
+        int best = 1000;
+
+        for(int i = 0;i < 3;i++){
+            for(int j = 0;j < 3;j++){
+                if (board[i][j] == ' '){
+                    board[i][j] = 'O';
+                    int value = Minimax(board,depth + 1,1);
+                    if (value < best){
+                        best = value;
+                    }
+                    board[i][j] = ' ';
+                }
+            }
+        }
+        return best;
+    }
+}
+
+void HardBot(char board[3][3]){
+
+    int bestVal = 1000;
+    int bestRow = -1;
+    int bestCol = -1;
+
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+
+            if(board[i][j]==' '){
+
+                board[i][j]='O';
+
+                int moveVal = Minimax(board,0,1);
+
+                board[i][j]=' ';
+
+                if(moveVal < bestVal){
+                    bestRow = i;
+                    bestCol = j;
+                    bestVal = moveVal;
+                }
+            }
+        }
+    }
+
+    board[bestRow][bestCol]='O';
+}
+
 int main(){
     char board[3][3];
     for(int i =0;i<3;i++){
@@ -201,6 +323,7 @@ int main(){
         }
     }
     int ch;
+    srand(time(NULL));
     printf("Enter 1 to play against another or 2 to play against computer: ");
     scanf("%d",&ch);
     if (ch == 1){
@@ -222,7 +345,7 @@ int main(){
                 Gameloop(board,MediumBot);
                 break;
             case 3:
-                printf("Coming Soon");
+                Gameloop(board,HardBot);
                 break;
             default:
                 printf("Invalid Choice!");
