@@ -57,7 +57,16 @@ void Player(char board[3][3]){
     ShowBoard(board);
     while(1){
         printf("Player %c , Enter position (1-9): ",player);
-        scanf("%d",&ch);
+        if (scanf("%d", &ch) != 1) {
+            printf("Invalid input! Please enter a number between 1 and 9.\n");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF) {}
+            continue;
+        }
+        if (ch < 1 || ch > 9) {
+            printf("Invalid position! Please enter a number between 1 and 9.\n");
+            continue;
+        }
 
         int row = (ch-1)/3;
         int col = (ch-1)%3;
@@ -162,7 +171,16 @@ void Gameloop(char board[3][3], BotMove bot){
     while (1){
         if (player == 'X'){
             printf("Player %c , Enter position (1-9): ",player);
-            scanf("%d",&ch);
+            if (scanf("%d", &ch) != 1) {
+                printf("Invalid input! Please enter a number between 1 and 9.\n");
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                continue;
+            }
+            if (ch < 1 || ch > 9) {
+                printf("Invalid position! Please enter a number between 1 and 9.\n");
+                continue;
+            }
 
             int row = (ch-1)/3;
             int col = (ch-1)%3;
@@ -325,7 +343,10 @@ int main(){
     int ch;
     srand(time(NULL));
     printf("Enter 1 to play against another or 2 to play against computer: ");
-    scanf("%d",&ch);
+    if (scanf("%d", &ch) != 1) {
+        printf("Invalid Input! Exiting...\n");
+        return 1;
+    }
     if (ch == 1){
         Player(board);
     }
@@ -336,7 +357,10 @@ int main(){
         printf("2.Medium\n");
         printf("3.Hard\n");
         printf("Enter Your Choice: ");
-        scanf("%d",&n);
+        if (scanf("%d", &n) != 1) {
+            printf("Invalid Choice! Exiting...\n");
+            return 1;
+        }
         switch (n){
             case 1:
                 Gameloop(board,EasyBot);
